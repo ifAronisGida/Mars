@@ -31,19 +31,20 @@ public class Almond extends Plant implements SpecialPlant{
     }
 
     @Override
-    public void rot(Farm farm) {
+    public boolean isRotten() {
+        boolean isRotting = false;
         if (random.nextDouble() <= 0.13) {
             productionGrowth -= 18;
-            farm.setSomethingIsRotten(true);
             System.out.println(name + ": is now rotting!!");
+            isRotting = true;
         }
+        return isRotting;
     }
 
     @Override
-    public void passOneMonth(Farm farm) {
+    public void passOneMonth() {
         productionGrowth = defaultProductionGrowth;
         growShroom();
-        rot(farm);
-        produce(farm);
+        prepareForNextMonth();
     }
 }

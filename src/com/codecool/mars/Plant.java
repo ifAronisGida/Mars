@@ -12,11 +12,13 @@ public abstract class Plant {
         age = 0;
     }
 
-    protected void produce(Farm farm) {
-        farm.incrementTotalFoodBy(productionPerMonth);
+    public int getProductionPerMonth() {
+        return productionPerMonth;
     }
 
-    public abstract void passOneMonth(Farm farm);
+    public abstract void passOneMonth();
+
+    public abstract boolean isRotten();
 
     protected void prepareForNextMonth() {
         productionPerMonth += productionGrowth;

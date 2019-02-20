@@ -23,16 +23,26 @@ public class Farm {
             Juniper juniper = new Juniper();
             Almond almond = new Almond();
 
-            existingPlants.add(existingPlants.size(), spruce);
-            existingPlants.add(existingPlants.size(), juniper);
-            existingPlants.add(existingPlants.size(), almond);
+            existingPlants.add(spruce);
+            existingPlants.add(juniper);
+            existingPlants.add(almond);
         }
     }
 
-    public void simulateOneMonth(Farm farm) {
+    private boolean isSomethingIsRotten() {
         somethingIsRotten = false;
         for (Plant plant: existingPlants) {
-            plant.passOneMonth(farm);
+            if (plant.isRotten()) somethingIsRotten = true;
+        }
+        return somethingIsRotten;
+    }
+
+    public void simulateOneMonth() {
+        somethingIsRotten = isSomethingIsRotten();
+        for (Plant plant: existingPlants) {
+            if (plant.isRotten()) somethingIsRotten = true;
+            incrementTotalFoodBy(plant.getProductionPerMonth());
+            plant.passOneMonth();
             System.out.println("Total food is now: " + totalFood);
         }
     }

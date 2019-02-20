@@ -14,7 +14,7 @@ public class Juniper extends Plant implements Evergreen{
     @Override
     public void growLeaves() {
         if (age % 5 == 0) {
-            productionGrowth += 8;
+            if (age != 0) productionGrowth += 8;
             System.out.println(name + ": grew some leaves!");
         }
     }
@@ -29,10 +29,14 @@ public class Juniper extends Plant implements Evergreen{
     }
 
     @Override
-    public void passOneMonth(Farm farm) {
+    public boolean isRotten() {
+        return false;
+    }
+
+    @Override
+    public void passOneMonth() {
         productionGrowth = defaultProductionGrowth;
         growLeaves();
-        produce(farm);
         checkForMax();
         prepareForNextMonth();
     }

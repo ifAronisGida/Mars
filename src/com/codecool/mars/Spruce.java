@@ -17,7 +17,7 @@ public class Spruce extends Plant implements Evergreen, SpecialPlant {
     @Override
     public void growLeaves() {
         if (age % 5 == 0) {
-            productionGrowth += 8;
+            if (age != 0) productionGrowth += 8;
             System.out.println(name + ": grew some leaves!");
         }
     }
@@ -31,12 +31,14 @@ public class Spruce extends Plant implements Evergreen, SpecialPlant {
     }
 
     @Override
-    public void rot(Farm farm) {
+    public boolean isRotten() {
+        boolean isRotting = false;
         if (random.nextDouble() <= 0.04) {
             productionGrowth -= 20;
-            farm.setSomethingIsRotten(true);
             System.out.println(name + ": is now rotting!!");
+            isRotting = true;
         }
+        return isRotting;
     }
 
     @Override
@@ -49,12 +51,10 @@ public class Spruce extends Plant implements Evergreen, SpecialPlant {
     }
 
     @Override
-    public void passOneMonth(Farm farm) {
+    public void passOneMonth() {
         productionGrowth = defaultProductionGrowth;
         growShroom();
         growLeaves();
         checkForMax();
-        rot(farm);
-        produce(farm);
     }
 }
